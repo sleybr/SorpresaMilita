@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>De Brandon para Milita 💌</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #ffafbd, #ffc3a0);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+      text-align: center;
+    }
+    #container {
+      background: rgba(255, 255, 255, 0.85);
+      padding: 20px 30px;
+      border-radius: 15px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      max-width: 90%;
+      transition: all 0.3s ease;
+    }
+    h1 {
+      font-size: 1.5rem;
+      color: #333;
+    }
+    p {
+      font-size: 1.1rem;
+      color: #444;
+    }
+    .heart {
+      position: absolute;
+      font-size: 24px;
+      animation: floatUp 3s linear forwards;
+      pointer-events: none;
+    }
+    @keyframes floatUp {
+      0% { transform: translateY(0); opacity: 1; }
+      100% { transform: translateY(-200px); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div id="container">
+    <h1>De Brandon para Milita 💌</h1>
+    <p id="message">Toca la pantalla para empezar...<br><small>Cada toque te contará algo especial 💖</small></p>
+  </div>
+
+  <script>
+    const messages = [
+      "Mi amor, primero decirte que contigo mis días tienen más color 🌸",
+      "Estas sacando lo mejor de mí y me impulsas a crecer 🚀",
+      "Tu compañía me da calma y mucha alegría ✨",
+      "Gracias por inspirarme a ser una mejor versión de mí 🤍",
+      "Eres mi motivación constante y mi apoyo más grande 🌟",
+      "Admiro la persona increíble que eres 🌈",
+      "Me hace feliz acompañarte en tu proceso y en tus sueños 💭",
+      "Valoro cada detalle, cada risa y cada momento contigo 💕",
+      "Siento que a tu lado todo tiene más sentido ✨",
+      "Prometo seguir aquí, apoyándote y cuidándote siempre 💌",
+      "Y por último mi amor bella, te estás volviendo una parte esencial en mi vida 🌹",
+      "Gracias por elegirme y ser parte de tu vida, te quiero mi hermosa niña 😘",
+      "De tu niño para la mujer más bella 🥹"
+    ];
+
+    let index = 0;
+    const messageEl = document.getElementById("message");
+
+    function showMessage(e) {
+      e.preventDefault();
+      if (index < messages.length) {
+        messageEl.innerText = messages[index];
+        createHeart();
+        index++;
+      } else {
+        messageEl.innerText = "✨ Fin de este pequeño regalo, pero nunca de lo que siento por ti ✨";
+        fireworks();
+      }
+    }
+
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.style.left = Math.random() * window.innerWidth + "px";
+      heart.style.top = window.innerHeight - 30 + "px";
+      heart.innerText = "💖";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 3000);
+    }
+
+    function fireworks() {
+      for (let i = 0; i < 30; i++) {
+        const heart = document.createElement("div");
+        heart.className = "heart";
+        heart.style.left = window.innerWidth / 2 + "px";
+        heart.style.top = window.innerHeight / 2 + "px";
+        heart.innerText = "✨";
+        document.body.appendChild(heart);
+
+        const angle = (i / 30) * 2 * Math.PI;
+        const distance = 150;
+        const x = Math.cos(angle) * distance;
+        const y = Math.sin(angle) * distance;
+
+        heart.animate(
+          [
+            { transform: "translate(0,0)", opacity: 1 },
+            { transform: `translate(${x}px, ${y}px)`, opacity: 0 }
+          ],
+          { duration: 1500, easing: "ease-out", fill: "forwards" }
+        );
+
+        setTimeout(() => heart.remove(), 2000);
+      }
+    }
+
+    const eventType = ("ontouchend" in window) ? "touchend" : "click";
+    document.body.addEventListener(eventType, showMessage);
+  </script>
+</body>
+</html>
